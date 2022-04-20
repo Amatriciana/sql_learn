@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:sqflite/sqflite.dart';
-import 'package:path/path.dart';
+
+import 'controller.dart';
 
 void main() {
   runApp(
@@ -17,6 +17,9 @@ class MyApp extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final result = ref.watch(formProvider);
+    final resultState = ref.watch(formProvider.notifier);
+
     final form1TextEditingController = useTextEditingController();
     final form2TextEditingController = useTextEditingController();
 
@@ -30,9 +33,15 @@ class MyApp extends HookConsumerWidget {
             TextFormField(controller: form1TextEditingController),
             TextFormField(controller: form2TextEditingController),
             ElevatedButton(
-              child: Text('計算'),
-              onPressed: () {},
+              child: const Text('計算'),
+              onPressed: () {
+                resultState.add(
+                  form1TextEditingController.text,
+                  form2TextEditingController.text,
+                );
+              },
             ),
+            Text(result.toString()),
           ]),
         ),
       ),
