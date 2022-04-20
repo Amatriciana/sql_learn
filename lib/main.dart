@@ -17,12 +17,24 @@ class MyApp extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final form1TextEditingController = useTextEditingController();
+    final form2TextEditingController = useTextEditingController();
+
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('aaa'),
+          title: const Text('sqflite learning'),
         ),
-        body: const Text('aaa'),
+        body: Form(
+          child: Column(children: [
+            TextFormField(controller: form1TextEditingController),
+            TextFormField(controller: form2TextEditingController),
+            ElevatedButton(
+              child: Text('計算'),
+              onPressed: () {},
+            ),
+          ]),
+        ),
       ),
     );
   }
