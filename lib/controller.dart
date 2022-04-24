@@ -10,3 +10,10 @@ class FormController extends StateNotifier<List> {
     state = [form1, form2];
   }
 }
+
+final bottomNavProvider = StateProvider((ref) => BottomNav.formPage);
+
+enum BottomNav {
+  formPage,
+  formListPage,
+}
