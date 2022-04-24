@@ -1,4 +1,5 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:sqflite/sqflite.dart';
 
 final formProvider =
     StateNotifierProvider<FormController, List>((ref) => FormController());
@@ -10,5 +11,3 @@ class FormController extends StateNotifier<List> {
     state = [form1, form2];
   }
 }
-
-final databaseProvider = Provider(((ref) => throw UnimplementedError()));
