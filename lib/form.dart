@@ -24,33 +24,28 @@ class FormPage extends HookConsumerWidget {
       return null;
     }, []);
 
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('aa'),
-        ),
-        body: Form(
-          child: Column(
-            children: [
-              TextFormField(
-                controller: form1TextEditingController,
-              ),
-              TextFormField(
-                controller: form2TextEditingController,
-              ),
-              ElevatedButton(
-                child: const Text('aa'),
-                onPressed: () {
-                  formListState.setForm(form1TextEditingController.text,
-                      form2TextEditingController.text);
-                  formdatabaseState.test1(form1TextEditingController.text,
-                      form2TextEditingController.text);
-                },
-              ),
-              Text(formList.toString()),
-              Text(formdatabase['form1'].toString()),
-            ],
-          ),
+    return Scaffold(
+      body: Form(
+        child: Column(
+          children: [
+            TextFormField(
+              controller: form1TextEditingController,
+            ),
+            TextFormField(
+              controller: form2TextEditingController,
+            ),
+            ElevatedButton(
+              child: const Text('aa'),
+              onPressed: () {
+                formListState.setForm(form1TextEditingController.text,
+                    form2TextEditingController.text);
+                formdatabaseState.test1(form1TextEditingController.text,
+                    form2TextEditingController.text);
+              },
+            ),
+            Text(formList.toString()),
+            Text(formdatabase['form1'].toString()),
+          ],
         ),
       ),
     );
