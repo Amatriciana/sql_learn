@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:path/path.dart';
-import 'package:sqflite/sqflite.dart';
 
 import 'package:sql_learn/controller.dart';
 import 'package:sql_learn/database.dart';
@@ -32,7 +30,6 @@ class MyApp extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final formList = ref.watch(formProvider);
     final formListState = ref.watch(formProvider.notifier);
-    final formdatabase = ref.watch(formListDbProvider);
     final formdatabaseState = ref.watch(formListDbProvider.notifier);
 
     final form1TextEditingController = useTextEditingController();
@@ -40,7 +37,7 @@ class MyApp extends HookConsumerWidget {
 
     useEffect(() {
       Future(() async {
-        formdatabaseState.formDb();
+        formdatabaseState.formListdatabase();
       });
       return null;
     }, []);

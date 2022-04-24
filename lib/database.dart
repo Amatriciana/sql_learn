@@ -3,9 +3,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
-import 'main.dart';
-import 'controller.dart';
-
 class FormList {
   FormList({required this.id, required this.form1, required this.form2});
 
@@ -33,7 +30,7 @@ final formListDbProvider =
 class FormListDb extends StateNotifier<List> {
   FormListDb() : super([]);
 
-  void formDb() async {
+  void formListdatabase() async {
     final database = openDatabase(
       join(await getDatabasesPath(), 'formlist_database.db'),
       onCreate: (db, version) {
@@ -44,7 +41,7 @@ class FormListDb extends StateNotifier<List> {
       version: 1,
     );
 
-    Future<void> insertFormlist(FormList formlist) async {
+    Future<void> insertFormList(FormList formlist) async {
       final Database db = await database;
       await db.insert(
         'formlist',
@@ -53,7 +50,7 @@ class FormListDb extends StateNotifier<List> {
       );
     }
 
-    Future<List<FormList>> getFormlist() async {
+    Future<List<FormList>> getFormList() async {
       final Database db = await database;
       final List<Map<String, dynamic>> maps = await db.query('formlist');
       return List.generate(maps.length, (i) {
@@ -65,7 +62,7 @@ class FormListDb extends StateNotifier<List> {
       });
     }
 
-    Future<void> updateFormlist(FormList formlist) async {
+    Future<void> updateFormList(FormList formlist) async {
       final db = await database;
       await db.update(
         'formlist',
@@ -76,7 +73,7 @@ class FormListDb extends StateNotifier<List> {
       );
     }
 
-    Future<void> deleteFormlist(int id) async {
+    Future<void> deleteFormList(int id) async {
       final db = await database;
       await db.delete(
         'formlist',
@@ -91,9 +88,9 @@ class FormListDb extends StateNotifier<List> {
       form2: 'フォーム２',
     );
 
-    await insertFormlist(formlist);
+    await insertFormList(formlist);
 
-    print(await getFormlist());
+    print(await getFormList());
 
     formlist = FormList(
       id: formlist.id,
@@ -101,12 +98,12 @@ class FormListDb extends StateNotifier<List> {
       form2: formlist.form2,
     );
 
-    await updateFormlist(formlist);
+    await updateFormList(formlist);
 
-    print(await getFormlist());
+    print(await getFormList());
 
-    await deleteFormlist(formlist.id);
+    await deleteFormList(formlist.id);
 
-    print(await getFormlist());
+    print(await getFormList());
   }
 }
