@@ -7,7 +7,16 @@ class FormListPage extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final list = [
-      ['1', '2', '3']
+      {
+        'id': '1',
+        'form1': '2',
+        'form2': '3',
+      },
+      {
+        'id': '4',
+        'form1': '5',
+        'form2': '6',
+      }
     ];
 
     return Scaffold(
@@ -28,9 +37,9 @@ class FormListPage extends HookConsumerWidget {
                     ),
                   ),
                   child: ListTile(
-                    title: Text('${list[index][0]}'
-                        '${list[index][1]}'
-                        '${list[index][2]}'),
+                    title: Text('ID: [${list[index]['id']}]  '
+                        'form1: [${list[index]['form1']}]  '
+                        'form2: [${list[index]['form2']}]'),
                   ),
                 ),
               ],
