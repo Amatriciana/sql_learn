@@ -24,46 +24,15 @@ class FormList {
   }
 }
 
-final formListDbProvider =
-    StateNotifierProvider<FormListDb, List>((ref) => FormListDb(ref.read));
+final formListDbProvider = StateNotifierProvider<FormListDbController, List>(
+    (ref) => FormListDbController(ref.read));
 
-class FormListDb extends StateNotifier<List> {
-  FormListDb(this._read) : super([]);
+class FormListDbController extends StateNotifier<List> {
+  FormListDbController(this._read) : super([]);
 
   final Reader _read;
 
-//  dynamic database;
-
-  void setTest(form1, form2) async {
-    var formlist = FormList(
-      id: 0,
-      form1: form1,
-      form2: form2,
-    );
-    await insertFormList(formlist);
-  }
-
-  void getTest() async {
-    List aaa = await getFormList();
-    List bbb = [];
-    for (var element in aaa) {
-      bbb.add(element.toMap());
-    }
-    state = bbb;
-  }
-
-  // void formListdatabase() async {
-  //   database = openDatabase(
-  //     join(await getDatabasesPath(), 'formlist_database.db'),
-  //     onCreate: (db, version) {
-  //       return db.execute(
-  //         "CREATE TABLE formlist(id INTEGER PRIMARY KEY, form1 TEXT, form2 TEXT)",
-  //       );
-  //     },
-  //     version: 1,
-  //   );
-  // }
-
+  // Create
   Future<void> insertFormList(FormList formlist) async {
     final Database db = await _read(databaseProvider);
     await db.insert(
@@ -73,6 +42,7 @@ class FormListDb extends StateNotifier<List> {
     );
   }
 
+  // Read
   Future<List<FormList>> getFormList() async {
     final Database db = await _read(databaseProvider);
     final List<Map<String, dynamic>> maps = await db.query('formlist');
@@ -85,6 +55,7 @@ class FormListDb extends StateNotifier<List> {
     });
   }
 
+  // Update
   Future<void> updateFormList(FormList formlist) async {
     final db = await _read(databaseProvider);
     await db.update(
@@ -96,6 +67,7 @@ class FormListDb extends StateNotifier<List> {
     );
   }
 
+  // Delete
   Future<void> deleteFormList(int id) async {
     final db = await _read(databaseProvider);
     await db.delete(
@@ -104,28 +76,4 @@ class FormListDb extends StateNotifier<List> {
       whereArgs: [id],
     );
   }
-
-  // var formlist = FormList(
-  // id: 0,
-  // form1: 'フォーム１',
-  // form2: 'フォーム２',
-  // );
-
-  // await insertFormList(formlist);
-
-  // print(await getFormList());
-
-  //formlist = FormList(
-  //  id: formlist.id,
-  // form1: formlist.form1,
-  //form2: formlist.form2,
-  //);
-
-  // await updateFormList(formlist);
-
-  // print(await getFormList());
-
-  // await deleteFormList(formlist.id);
-
-  //print(await getFormList());
 }
