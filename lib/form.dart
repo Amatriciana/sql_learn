@@ -11,7 +11,6 @@ class FormPage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final formList = ref.watch(formProvider);
     final formListState = ref.watch(formProvider.notifier);
-    final formdatabase = ref.watch(formListDbProvider);
     final formdatabaseState = ref.watch(formListDbProvider.notifier);
 
     final form1TextEditingController = useTextEditingController();
@@ -39,12 +38,11 @@ class FormPage extends HookConsumerWidget {
               onPressed: () {
                 formListState.setForm(form1TextEditingController.text,
                     form2TextEditingController.text);
-                formdatabaseState.test1(form1TextEditingController.text,
+                formdatabaseState.setTest(form1TextEditingController.text,
                     form2TextEditingController.text);
               },
             ),
             Text(formList.toString()),
-            Text(formdatabase['form1'].toString()),
           ],
         ),
       ),

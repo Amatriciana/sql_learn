@@ -4,12 +4,13 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:sql_learn/controller.dart';
 import 'form.dart';
 import 'formlist.dart';
+import 'database.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await Future.wait(
-    [],
+    [Future(() async {})],
   );
   runApp(
     ProviderScope(

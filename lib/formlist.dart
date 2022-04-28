@@ -1,27 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:sql_learn/database.dart';
 
 class FormListPage extends HookConsumerWidget {
   const FormListPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final list = [
-      {
-        'id': '1',
-        'form1': '2',
-        'form2': '3',
-      },
-      {
-        'id': '4',
-        'form1': '5',
-        'form2': '6',
-      }
-    ];
+    final formListDb = ref.watch(formListDbProvider);
+    final formListDbState = ref.watch(formListDbProvider.notifier);
+
+    useEffect(() {
+      Future(() async {
+        formListDbState.getTest();
+      });
+      return null;
+    }, []);
 
     return Scaffold(
         body: ListView.builder(
-      itemCount: list.length,
+      itemCount: formListDb.length,
       itemBuilder: (BuildContext context, int index) {
         return Dismissible(
             key: UniqueKey(),
@@ -37,9 +36,7 @@ class FormListPage extends HookConsumerWidget {
                     ),
                   ),
                   child: ListTile(
-                    title: Text('ID: [${list[index]['id']}]  '
-                        'form1: [${list[index]['form1']}]  '
-                        'form2: [${list[index]['form2']}]'),
+                    title: Text('${formListDb[index]}'),
                   ),
                 ),
               ],

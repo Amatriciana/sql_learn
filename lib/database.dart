@@ -25,22 +25,29 @@ class FormList {
 }
 
 final formListDbProvider =
-    StateNotifierProvider<FormListDb, Map>((ref) => FormListDb());
+    StateNotifierProvider<FormListDb, List>((ref) => FormListDb());
 
-class FormListDb extends StateNotifier<Map> {
-  FormListDb() : super({});
+class FormListDb extends StateNotifier<List> {
+  FormListDb() : super([]);
 
   dynamic database;
 
-  void test1(form1, form2) async {
+  void setTest(form1, form2) async {
     var formlist = FormList(
       id: 0,
       form1: form1,
       form2: form2,
     );
     await insertFormList(formlist);
-    List test3 = await getFormList();
-    state = test3[0].toMap();
+  }
+
+  void getTest() async {
+    List aaa = await getFormList();
+    List bbb = [];
+    for (var element in aaa) {
+      bbb.add(element.toMap());
+    }
+    state = bbb;
   }
 
   void formListdatabase() async {
