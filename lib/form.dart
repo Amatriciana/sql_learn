@@ -16,13 +16,6 @@ class FormPage extends HookConsumerWidget {
     final form1TextEditingController = useTextEditingController();
     final form2TextEditingController = useTextEditingController();
 
-    useEffect(() {
-      Future(() async {
-        formdatabaseState.formListdatabase();
-      });
-      return null;
-    }, []);
-
     return Scaffold(
       body: Form(
         child: Column(

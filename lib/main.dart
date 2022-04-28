@@ -4,16 +4,33 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:sql_learn/controller.dart';
 import 'form.dart';
 import 'formlist.dart';
-import 'database.dart';
+import 'package:sqflite/sqflite.dart';
+import 'package:path/path.dart';
+
+final databaseProvider =
+    Provider<Future<Database>>((ref) => throw UnimplementedError());
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
+  late final Future<Database> database;
   await Future.wait(
-    [Future(() async {})],
+    [
+      Future(() async {
+        database = openDatabase(
+          join(await getDatabasesPath(), 'formlist_database.db'),
+          onCreate: (db, version) {
+            return db.execute(
+              "CREATE TABLE formlist(id INTEGER PRIMARY KEY, form1 TEXT, form2 TEXT)",
+            );
+          },
+          version: 1,
+        );
+      })
+    ],
   );
   runApp(
     ProviderScope(
+      overrides: [databaseProvider.overrideWithValue(database)],
       child: Consumer(
         builder: (context, ref, child) {
           return child!;

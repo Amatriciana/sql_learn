@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:sqflite/sqflite.dart';
-import 'package:path/path.dart';
+import 'package:sql_learn/main.dart';
 
 class FormList {
   FormList({required this.id, required this.form1, required this.form2});
@@ -25,12 +25,14 @@ class FormList {
 }
 
 final formListDbProvider =
-    StateNotifierProvider<FormListDb, List>((ref) => FormListDb());
+    StateNotifierProvider<FormListDb, List>((ref) => FormListDb(ref.read));
 
 class FormListDb extends StateNotifier<List> {
-  FormListDb() : super([]);
+  FormListDb(this._read) : super([]);
 
-  dynamic database;
+  final Reader _read;
+
+//  dynamic database;
 
   void setTest(form1, form2) async {
     var formlist = FormList(
@@ -50,20 +52,20 @@ class FormListDb extends StateNotifier<List> {
     state = bbb;
   }
 
-  void formListdatabase() async {
-    database = openDatabase(
-      join(await getDatabasesPath(), 'formlist_database.db'),
-      onCreate: (db, version) {
-        return db.execute(
-          "CREATE TABLE formlist(id INTEGER PRIMARY KEY, form1 TEXT, form2 TEXT)",
-        );
-      },
-      version: 1,
-    );
-  }
+  // void formListdatabase() async {
+  //   database = openDatabase(
+  //     join(await getDatabasesPath(), 'formlist_database.db'),
+  //     onCreate: (db, version) {
+  //       return db.execute(
+  //         "CREATE TABLE formlist(id INTEGER PRIMARY KEY, form1 TEXT, form2 TEXT)",
+  //       );
+  //     },
+  //     version: 1,
+  //   );
+  // }
 
   Future<void> insertFormList(FormList formlist) async {
-    final Database db = await database;
+    final Database db = await _read(databaseProvider);
     await db.insert(
       'formlist',
       formlist.toMap(),
@@ -72,7 +74,7 @@ class FormListDb extends StateNotifier<List> {
   }
 
   Future<List<FormList>> getFormList() async {
-    final Database db = await database;
+    final Database db = await _read(databaseProvider);
     final List<Map<String, dynamic>> maps = await db.query('formlist');
     return List.generate(maps.length, (i) {
       return FormList(
@@ -84,7 +86,7 @@ class FormListDb extends StateNotifier<List> {
   }
 
   Future<void> updateFormList(FormList formlist) async {
-    final db = await database;
+    final db = await _read(databaseProvider);
     await db.update(
       'formlist',
       formlist.toMap(),
@@ -95,7 +97,7 @@ class FormListDb extends StateNotifier<List> {
   }
 
   Future<void> deleteFormList(int id) async {
-    final db = await database;
+    final db = await _read(databaseProvider);
     await db.delete(
       'formlist',
       where: "id = ?",
