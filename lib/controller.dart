@@ -1,7 +1,7 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'database.dart';
 
-final formProvider = StateNotifierProvider<FormController, List>(
+final formProvider = StateNotifierProvider.autoDispose<FormController, List>(
     (ref) => FormController(ref.read));
 
 class FormController extends StateNotifier<List> {
@@ -13,7 +13,7 @@ class FormController extends StateNotifier<List> {
     state = [form1, form2];
   }
 
-  void setTest1() async {
+  void setDb() async {
     final form1 = state[0];
     final form2 = state[1];
 
@@ -26,15 +26,16 @@ class FormController extends StateNotifier<List> {
   }
 }
 
-final viewListProvider = StateNotifierProvider<ViewListController, List>(
-    (ref) => ViewListController(ref.read));
+final viewListProvider =
+    StateNotifierProvider.autoDispose<ViewListController, List>(
+        (ref) => ViewListController(ref.read));
 
 class ViewListController extends StateNotifier<List> {
   ViewListController(this._read) : super([]);
 
   final Reader _read;
 
-  void getTest1() async {
+  void getDb() async {
     List aaa = await _read(formListDbProvider.notifier).getFormList();
     List bbb = [];
     for (var element in aaa) {

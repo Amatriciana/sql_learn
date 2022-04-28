@@ -13,7 +13,7 @@ class FormListPage extends HookConsumerWidget {
 
     useEffect(() {
       Future(() async {
-        viewListState.getTest1();
+        viewListState.getDb();
       });
       return null;
     }, []);

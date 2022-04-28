@@ -30,7 +30,7 @@ class FormPage extends HookConsumerWidget {
               onPressed: () {
                 formListState.setForm(form1TextEditingController.text,
                     form2TextEditingController.text);
-                formListState.setTest1();
+                formListState.setDb();
               },
             ),
             Text(formList.toString()),
