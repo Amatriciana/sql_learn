@@ -12,9 +12,7 @@ class FormListPage extends HookConsumerWidget {
     final viewListState = ref.watch(viewListProvider.notifier);
 
     useEffect(() {
-      Future(() async {
-        viewListState.getDb();
-      });
+      viewListState.getDb();
       return null;
     }, []);
 
