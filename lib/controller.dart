@@ -43,6 +43,10 @@ class ViewListController extends StateNotifier<List> {
     }
     state = bbb;
   }
+
+  void clearDb(int id) async {
+    _read(formListDbProvider.notifier).deleteFormList(id);
+  }
 }
 
 final bottomNavProvider = StateProvider((ref) => BottomNav.formPage);

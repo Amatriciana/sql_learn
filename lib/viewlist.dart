@@ -21,26 +21,30 @@ class FormListPage extends HookConsumerWidget {
       itemCount: viewList.length,
       itemBuilder: (BuildContext context, int index) {
         return Dismissible(
-            key: UniqueKey(),
-            child: Column(
-              children: [
-                Container(
-                  decoration: const BoxDecoration(
-                    border: Border(
-                      bottom: BorderSide(
-                        width: 1,
-                        color: Colors.grey,
-                      ),
+          key: UniqueKey(),
+          child: Column(
+            children: [
+              Container(
+                decoration: const BoxDecoration(
+                  border: Border(
+                    bottom: BorderSide(
+                      width: 1,
+                      color: Colors.grey,
                     ),
                   ),
-                  child: ListTile(
-                    title: Text('ID: [${viewList[index]['id']}]  '
-                        'form1: ${viewList[index]['form1']}  '
-                        'form2: ${viewList[index]['form2']}'),
-                  ),
                 ),
-              ],
-            ));
+                child: ListTile(
+                  title: Text('ID: [${viewList[index]['id']}]  '
+                      'form1: ${viewList[index]['form1']}  '
+                      'form2: ${viewList[index]['form2']}'),
+                ),
+              ),
+            ],
+          ),
+          onDismissed: (direction) {
+            viewListState.clearDb(viewList[index]['id']);
+          },
+        );
       },
     ));
   }
