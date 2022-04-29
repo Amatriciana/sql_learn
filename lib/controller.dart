@@ -18,7 +18,7 @@ class FormController extends StateNotifier<List> {
     final form2 = state[1];
 
     var formlist = FormList(
-      id: 0,
+      // id: 0, IDは自動増加
       form1: form1,
       form2: form2,
     );

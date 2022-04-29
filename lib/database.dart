@@ -4,9 +4,9 @@ import 'package:sqflite/sqflite.dart';
 import 'package:sql_learn/main.dart';
 
 class FormList {
-  FormList({required this.id, required this.form1, required this.form2});
+  FormList({this.id, required this.form1, required this.form2});
 
-  final int id;
+  final int? id;
   final String form1;
   final String form2;
 
