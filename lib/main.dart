@@ -20,7 +20,7 @@ Future<void> main() async {
           join(await getDatabasesPath(), 'formlist_database.db'),
           onCreate: (db, version) {
             return db.execute(
-              "CREATE TABLE formlist(id INTEGER PRIMARY KEY, form1 TEXT, form2 TEXT)",
+              "CREATE TABLE formlist(id INTEGER PRIMARY KEY AUTOINCREMENT, form1 TEXT, form2 TEXT)",
             );
           },
           version: 1,
